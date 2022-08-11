@@ -1,0 +1,21 @@
+name: Migration
+
+on:
+  pull_request:
+    branches: 
+      - master
+
+jobs:
+  migrate:
+    name: Migration
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Migrate
+        run:
+          node ./migrate --sourceSubscriptionId "${{ secrets.sourceSubscriptionId }} --sourceResourceGroupName  "${{ secrets.sourceResourceGroupName }} --sourceServiceName "${{ secrets.sourceServiceName }} --destServiceName "${{ secrets.destServiceName }} --destSubscriptionId "${{ secrets.destSubscriptionId }} --destResourceGroupName "${{ secrets.destResourceGroupName }} --sourceTenantId "${{ secrets.sourceAzureTenantId }} --sourceServicePrincipal "${{ secrets.sourceServicePrincipal }} --sourceSecret "${{ secrets.sourceServicePrincipalSecret }}  --destTenantId "${{ secrets.sourceAzureTenantId }} --destServicePrincipal "${{ secrets.destServicePrincipal }} --destSecret "${{ secrets.destServicePrincipalSecret }}
