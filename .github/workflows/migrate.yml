@@ -4,6 +4,19 @@ on:
   pull_request:
     branches: 
       - master
+      
+env:
+  sourceSubscriptionId: Your value
+  sourceResourceGroupName: Your value
+  sourceServiceName: Your value
+  sourceAzureTenantId: Your value
+  sourceServicePrincipal: Your value
+  sourceServicePrincipalSecret:  ${{ secrets.SourcePrincipalSecret }}
+  destSubscriptionId: Your value
+  destResourceGroupName: Your value
+  destServiceName: Your value
+  destServicePrincipal: Your value
+  destServicePrincipalSecret: ${{ secrets.DestPrincipalSecret }}
 
 jobs:
   migrate:
@@ -18,4 +31,4 @@ jobs:
 
       - name: Migrate
         run:
-          node ./migrate --sourceSubscriptionId "${{ secrets.sourceSubscriptionId }} --sourceResourceGroupName  "${{ secrets.sourceResourceGroupName }} --sourceServiceName "${{ secrets.sourceServiceName }} --destServiceName "${{ secrets.destServiceName }} --destSubscriptionId "${{ secrets.destSubscriptionId }} --destResourceGroupName "${{ secrets.destResourceGroupName }} --sourceTenantId "${{ secrets.sourceAzureTenantId }} --sourceServicePrincipal "${{ secrets.sourceServicePrincipal }} --sourceSecret "${{ secrets.sourceServicePrincipalSecret }}  --destTenantId "${{ secrets.sourceAzureTenantId }} --destServicePrincipal "${{ secrets.destServicePrincipal }} --destSecret "${{ secrets.destServicePrincipalSecret }}
+          node ./migrate --sourceSubscriptionId "${{ env.sourceSubscriptionId }} --sourceResourceGroupName  "${{ env.sourceResourceGroupName }} --sourceServiceName "${{ env.sourceServiceName }} --destServiceName "${{ env.destServiceName }} --destSubscriptionId "${{ env.destSubscriptionId }} --destResourceGroupName "${{ env.destResourceGroupName }} --sourceTenantId "${{ env.sourceAzureTenantId }} --sourceServicePrincipal "${{ env.sourceServicePrincipal }} --sourceSecret "${{ env.sourceServicePrincipalSecret }}  --destTenantId "${{ env.sourceAzureTenantId }} --destServicePrincipal "${{ env.destServicePrincipal }} --destSecret "${{ env.destServicePrincipalSecret }}
